@@ -1,0 +1,145 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded, sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  /* Originally was background: linear-gradient(to right #00aaff, #00ff6c
+    This was not working in Chrome, so I found a solution here: 
+    https://stackoverflow.com/questions/26318988/linear-gradient-not-working-in-chrome */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    /* Colors found in https://flatuicolors.com/palette/nl*/
+      color-stop(0%, #f79f1f),
+    color-stop(100%, #d980fa)
+  );
+  /* Move clock to middle of page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Remove scrollbar from side */
+  overflow: hidden;
+}
+
+.clock {
+  width: 300px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%; /* Makes square space into circle */
+  border: 2px solid black;
+  position: relative;
+}
+
+.clock .number {
+  --rotation: 0; /* Variable to be used in transform below */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform: rotate(var(--rotation)); /* Rotates number according to variable */
+  font-size: 1.5rem;
+}
+
+.clock .number1 {
+  --rotation: 30deg;
+}
+
+.clock .number2 {
+  --rotation: 60deg;
+}
+
+.clock .number3 {
+  --rotation: 90deg;
+}
+
+.clock .number4 {
+  --rotation: 120deg;
+}
+
+.clock .number5 {
+  --rotation: 150deg;
+}
+
+.clock .number6 {
+  --rotation: 180deg;
+}
+
+.clock .number7 {
+  --rotation: 210deg;
+}
+
+.clock .number8 {
+  --rotation: 240deg;
+}
+
+.clock .number9 {
+  --rotation: 270deg;
+}
+
+.clock .number10 {
+  --rotation: 300deg;
+}
+
+.clock .number11 {
+  --rotation: 330deg;
+}
+
+.clock .hand {
+  --rotation: 0; /* This will be updated by JavaScript */
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  border: 1px solid white;
+  /* These will transform top of hand to look rounded */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: black;
+  /* takes rotation from bottom of hand, keeping it in center */
+  transform-origin: bottom;
+  /* translateX moves the hand back 50%, making it straight with the 12*/
+  transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg));
+  /* Making sure hands are always above numbers */
+  z-index: 10;
+}
+
+.clock::after {
+  /* Creates 'pseduo content', which can be styled here in CSS*/
+  content: "";
+  position: absolute;
+  background-color: black;
+  /* Ensure that this circle will be above hands on clock */
+  z-index: 11;
+  width: 15px;
+  height: 15px;
+  /* Keep this center of clock */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Make square into circle */
+  border-radius: 50%;
+}
+
+.clock .hand.second {
+  width: 3px;
+  height: 45%;
+  background-color: red;
+}
+
+.clock .hand.minute {
+  width: 7px;
+  height: 40%;
+  background-color: black;
+}
+
+.clock .hand.hour {
+  width: 10px;
+  height: 35%;
+  background-color: black;
+}
